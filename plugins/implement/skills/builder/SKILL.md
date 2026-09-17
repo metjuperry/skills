@@ -40,12 +40,17 @@ name and prefix once; there is nothing to infer them from.
 
 **Existing workspace** — `txc workspace validate` and `dotnet build` must pass
 before you change anything. Then find what is there, so you extend it and infer
-instead of asking:
+instead of asking. **Gather the paths rather than guessing them**: `dotnet sln list`
+gives every project at whatever depth, each `.csproj` gives `<SolutionRootPath>`
+(default `.`) and `<PublisherPrefix>`, and components sit under
+`<project dir>/<SolutionRootPath>/<directory>/` — `<directory>` being what
+`txc component type list` reports for the type. A fixed `src/*/…` glob misses a
+nested project and you re-scaffold over live work.
 
-- **Tables** — directory names under `src/*/Entities/` (e.g. `con_servicevisit`).
+- **Tables** — the directory names under `Entities/` (e.g. `con_servicevisit`).
   Match the **exact** logical name, never a substring.
-- **Publisher prefix** — `<PublisherPrefix>` in a solution `.csproj`, or
-  `CustomizationPrefix` in its `Other/Solution.xml`. Reuse it; never ask.
+- **Publisher prefix** — `<PublisherPrefix>` from the `.csproj`, else
+  `CustomizationPrefix` in that project's `Other/Solution.xml`. Reuse it; never ask.
 
 Report what you found before proposing anything — **never re-scaffold over an
 existing workspace.**

@@ -27,19 +27,25 @@ txc workspace project explain            # the project types that can exist
 txc workspace component create --help    # what is actually buildable
 ```
 
-Then branch on whether a workspace exists — a solution file (`*.slnx`/`*.sln`)
-beside a `src/` directory.
+Then branch on whether a workspace exists — a solution file (`*.slnx`/`*.sln`).
 
-**Existing workspace** — inventory it:
+**Existing workspace — gather the paths, never guess them.** Project arrangement
+under `src/` is explicitly not enforced, and a solution project may keep its
+Dataverse files in a subfolder, so a fixed `src/*/…` glob silently finds nothing
+and the design then *adds* what it should have *extended*. Derive instead:
 
-| Looking for | Where |
-|---|---|
-| what each project is | `<ProjectType>` in its `.csproj` — e.g. `Solution`, `PDPackage`, `CodeApp`, `GenPage` |
-| tables and columns | `src/*/Entities/<logical>/Entity.xml` |
-| relationships | `src/*/Other/Relationships.xml` |
-| roles and global choices | `src/*/Roles/`, `src/*/OptionSets/` |
-| apps and navigation | `src/*/AppModuleSiteMaps/*/` |
-| publisher prefix | `src/*/Other/Solution.xml`, or `<PublisherPrefix>` in the `.csproj` |
+1. `dotnet sln list` — every project path, at whatever depth it sits
+2. from each `.csproj`: `<ProjectType>` (`Solution`, `PDPackage`, `CodeApp`,
+   `GenPage`), `<SolutionRootPath>` (default `.`) and `<PublisherPrefix>`
+3. a solution project's components live under
+   `<project dir>/<SolutionRootPath>/<directory>/`, where `<directory>` is the
+   `directory` field `txc component type list` reports for that type — `Entities`,
+   `Roles`, `OptionSets`, `Other`, `AppModules`, `AppModuleSiteMaps` and the rest
+
+Then read what is there: tables and columns from `Entities/<logical>/Entity.xml`,
+relationships from `Other/Relationships.xml`, roles from `Roles/`, global choices
+from `OptionSets/`, apps and navigation from `AppModuleSiteMaps/`, and the
+publisher prefix from `Other/Solution.xml` if the `.csproj` did not carry it.
 
 Match table names **exactly**, never as a substring — a fuzzy match reporting a
 table that isn't there is how a design ends up extending nothing.

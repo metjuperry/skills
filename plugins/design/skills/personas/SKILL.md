@@ -23,13 +23,19 @@ authority.
 ## Where the personas come from
 
 **If the workspace already has components**, they are largely encoded — start
-there and confirm, rather than inventing a parallel cast beside roles that exist:
+there and confirm, rather than inventing a parallel cast beside roles that exist.
+
+**Gather the paths, never guess them** — project arrangement under `src/` is not
+enforced, so `dotnet sln list` gives every project, each `.csproj` gives its
+`<SolutionRootPath>` (default `.`), and components sit under
+`<project dir>/<SolutionRootPath>/<directory>/` with `<directory>` as
+`txc component type list` reports it. Then read:
 
 | Signal | Where |
 |---|---|
-| roles already modelled | `src/*/Roles/` — the convention is one role per persona |
-| what each is expected to do | `src/*/AppModuleSiteMaps/*/`, `src/*/AppModules/` |
-| what they work on | `src/*/Entities/<logical>/` |
+| roles already modelled | `Roles/` — the convention is one role per persona |
+| what each is expected to do | `AppModuleSiteMaps/`, `AppModules/` |
+| what they work on | `Entities/<logical>/` |
 
 **From scratch** — an empty folder, or a problem statement with no code yet —
 elicit them. Two `AskUserQuestion` rounds at most, then infer the rest and say
