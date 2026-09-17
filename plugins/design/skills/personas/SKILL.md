@@ -1,6 +1,6 @@
 ---
 name: personas
-description: Works out who a TALXIS / Power Platform / Dataverse system is for — the roles that use it, what each needs to get done, what makes that hard today, and how much authority they hold. Writes personas.md, which the rest of the design builds on. Use when starting a new system from a problem statement, or when the people a system serves have never been written down.
+description: Works out who a TALXIS / Power Platform / Dataverse system is for — the roles that use it, what each needs to get done, what makes that hard today, and how much authority they hold — the reach that becomes their security role. Writes personas.md, which the rest of the design builds on. Use when starting a new system from a problem statement, or when the people a system serves have never been written down.
 user-invocable: true
 argument-hint: "<who the system is for, or the problem it solves>"
 ---
@@ -43,7 +43,8 @@ plainly what you inferred.
 | Context of use | desk, field, shared device — decides mobile vs desktop surfaces |
 | Jobs to be done | drives every table and screen downstream |
 | What makes it hard today | the thing the system actually has to fix |
-| Decision authority | becomes the security role's depth: own records (Basic) → business unit (Local) → unit and children (Deep) → organization (Global) |
+| Decision authority | how far their reach goes, in the levels the platform actually takes: `User` (own records, the UI calls it Basic) → `BusinessUnit` → `ParentChild` (unit and children) → `Global`. `design:spec` turns this into the security role |
+| What they must not reach | the records or actions this persona is deliberately denied — usually the real security requirement, and invisible if you only record what they can do |
 
 ## Rules
 
@@ -55,9 +56,14 @@ plainly what you inferred.
   The traffic runs the other way.
 - Where two personas differ only in authority, say that — it is one persona with
   two privilege depths, not two.
+- **Reach is per action, not one value for the whole persona.** A dispatcher who
+  reads every visit but edits only their own is `Read: Global`, `Write: User` — record
+  that, not a single "Local". One level per persona is the shortcut that produces
+  roles which are too generous somewhere and too tight somewhere else.
 
 ## Hand off
 
 `/design:spec` reads this file for its **Jobs to be done** and builds the data
-model, behaviour placement and user flows on it. `/design:features` uses these
-same names as its scenario actors.
+model, behaviour placement and user flows on it — and crosses **Decision authority**
+with that data model into the `Security` section of `implementation-guide.md`, one
+role per persona. `/design:features` uses these same names as its scenario actors.

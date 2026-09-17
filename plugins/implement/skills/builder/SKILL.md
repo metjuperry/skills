@@ -27,6 +27,11 @@ recording what was agreed. Local only — **nothing deploys**. This skill owns t
 you did on an earlier run. Confirm it still matches what the user wants, then go
 straight to Phase 2's approval. Do not re-ask what the document already answers.
 
+**If `implementation-guide.md` is here too, its `Components` section is the build
+list** — template, solution project and the job each component satisfies, already
+decided. Build from it rather than re-deriving it from prose, and treat its
+`Step bindings` section as the `test` skill's input, not yours.
+
 Run the `workspace` skill, then branch on what it found:
 
 **Empty folder** — scaffold the monorepo first (solution file, `src/`, the
@@ -74,7 +79,8 @@ Fixed order — each concern's skill owns the *how*:
 
 1. `data-model` — tables, then columns, then lookups
 2. `frontend` — app shell and navigation, then forms and views
-3. `security` — one role per persona, then its privileges, then app access
+3. `security` — one role per persona, then its privileges, then app access; the
+   guide's `Security` section is the design where it exists
 4. `test` — a BDD feature per job worth protecting
 
 `txc workspace validate` and `dotnet build` after each concern, not once at the

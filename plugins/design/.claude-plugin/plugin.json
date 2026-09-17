@@ -1,7 +1,7 @@
 {
   "name": "design",
-  "version": "0.2.0",
-  "description": "Design TALXIS / Power Platform / Dataverse work before building it: work out the personas a system serves, settle the data model, decide where each behaviour runs, map the user flows, and write the Gherkin — from a problem statement in an empty folder, or against a repository that already exists. Read-only; nothing is scaffolded or deployed. Use when a change needs designing, specifying, or agreeing before any code is written.",
+  "version": "0.3.0",
+  "description": "Design TALXIS / Power Platform / Dataverse work before building it: work out the personas a system serves, settle the data model, decide where each behaviour runs, turn each persona's authority into its security role, map the user flows, and write the Gherkin mapped onto the step bindings the test kit already ships — from a problem statement in an empty folder, or against a repository that already exists. Read-only; nothing is scaffolded or deployed. Use when a change needs designing, specifying, or agreeing before any code is written.",
   "author": {
     "name": "TALXIS",
     "url": "https://github.com/TALXIS"

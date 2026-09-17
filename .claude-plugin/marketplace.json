@@ -11,7 +11,7 @@
     {
       "name": "design",
       "source": "./plugins/design",
-      "description": "Design TALXIS / Power Platform work before building it: personas, the data model, where each behaviour runs, the user flows, and Gherkin features — from a problem statement in an empty folder, or against a repository that already exists. Read-only. Use when a change needs designing or specifying before any code is written."
+      "description": "Design TALXIS / Power Platform work before building it: personas and the security roles their authority implies, the data model, where each behaviour runs, the user flows, and Gherkin features — from a problem statement in an empty folder, or against a repository that already exists. Read-only. Use when a change needs designing or specifying before any code is written."
     },
     {
       "name": "implement",

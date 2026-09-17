@@ -100,6 +100,25 @@ and `design:features` read them by name:
 **Every section appears in both scenarios** — they are read by name, so on a
 greenfield design `Existing` says nothing exists yet rather than being dropped.
 
+Then write two sections of `implementation-guide.md`:
+
+**Components** — one row per component, naming the template it is built from, the
+solution project it belongs in, and the job or requirement it satisfies. Phase 0
+already listed what is buildable — use it, and raise an **Open question** for anything
+the design needs that has no template (a many-to-many has none; it costs hand-authored
+XML).
+
+**Security** — one role per persona, then a row per table it touches, granting each
+privilege at the shallowest level that still lets the persona do their job. This is
+the only place both inputs exist: personas' **Decision authority** and the data model.
+Grant per action, never one level for the whole role, and give a table the persona
+must not reach no row at all rather than a generous one. Anything the personas do not
+answer is an **Open question**, not a guess — over-granting is invisible until audit.
+
+`solution-design.md` is the design; the guide is the build instruction that saves
+`implement:builder` from re-deriving it. **Own only that one section** —
+`design:features` owns *Step bindings* and nothing else touches it.
+
 Render the summary in your reply, then point at `/design:features` for the Gherkin
 and `/implement:builder` to build it. **No plan mode** — nothing is executed here,
 and the document is what gets approved.

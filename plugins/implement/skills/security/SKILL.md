@@ -30,6 +30,9 @@ unknown `--param` fails with *empty stdout* and exit 2 (T20).
 
 ## Sequence
 
+0. **If `implementation-guide.md` has a `Security` section, that is the design** —
+   `design:spec` already crossed the personas with the data model. Scaffold it as
+   written; don't re-derive who needs what.
 1. Roles live in their own solution project (conventionally
    `src/Solutions.Security`).
 2. Create the role (**one role file per persona**), then one
@@ -40,8 +43,14 @@ unknown `--param` fails with *empty stdout* and exit 2 (T20).
 
 ## Invariants
 
-- Privilege **depth**: Basic = own records · Local = business unit · Deep = unit
-  + children · Global = whole organization. Grant the shallowest depth that works.
+- Privilege **levels** are `None` · `User` · `BusinessUnit` · `ParentChild` ·
+  `Global` — the platform's values, not the UI's *Basic/Local/Deep* labels, which the
+  template rejects. A type left out defaults to `None`. Grant the shallowest that works.
+- `PrivilegeTypeAndLevel` takes `[{ "type": "Read", "level": "Global" }, …]` per
+  `txc docs get security-roles`; the parameter's own description shows a different,
+  stale shape (T23). Follow the doc, and trust the exit code.
+- Privileges attach to a role **by name** (`RoleName`), so it must match the role
+  file exactly — a typo silently grants nothing.
 - Model roles for **personas, not people**; test users get least-privilege roles,
   never admin.
 
